@@ -2,12 +2,11 @@ import React, {  useEffect, useState } from "react";
 import Card from "./Card";
 import Spinner from "./Spinner";
 const NewsCard = (props) => {
-  const [News, setNews] = useState();
   const [page, setPage] = useState(1);
   const [totalArt, setTotalArt] = useState("");
   const [Loading,setLoading]=useState(false);
 
-  useEffect(() => {
+  
     const getData = async () => {
       setLoading(true)
       let data = await fetch(
@@ -18,11 +17,17 @@ const NewsCard = (props) => {
       setTotalArt(Info.totalResults);
 
       setNews(Info.articles);
-      console.log(News);
+     
     };
-    News?'':getData()
+    useEffect(()=>{
+
+      getData();
+    },[])
+  const [News, setNews] = useState();
+
+    console.log(News,"avtu")
    
-  }, [News]);
+
 
 
 
