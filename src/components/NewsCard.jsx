@@ -2,7 +2,7 @@ import React, {  useEffect, useState } from "react";
 import Card from "./Card";
 import Spinner from "./Spinner";
 const NewsCard = (props) => {
-  const [News, setNews] = useState([]);
+  const [News, setNews] = useState();
   const [page, setPage] = useState(1);
   const [totalArt, setTotalArt] = useState("");
   const [Loading,setLoading]=useState(false);
@@ -20,8 +20,14 @@ const NewsCard = (props) => {
       setNews(Info.articles);
       console.log(News);
     };
-    getData();
-  }, []);
+    News?'':getData()
+   
+  }, [News]);
+
+
+
+
+  
   const handlePrevious = async () => {
     setPage(page - 1);
     setLoading(true)
@@ -63,7 +69,7 @@ const NewsCard = (props) => {
       <h2 className="pb-4 pt-3 fs-1 m-auto mb-3 text-center"> Top-Headlines</h2>
      {Loading?<Spinner/>:''}
       <div className="row">
-        {News.map((news) => (
+        {News?News.map((news) => (
           
           <div className="col-md-4 mb-3"  key={news.url}>
             <Card
@@ -82,7 +88,7 @@ const NewsCard = (props) => {
               more={news.url}
             />
           </div>
-        ))}
+        )):''}
       </div>
       <div className="d-flex w-100 justify-content-around mt-3">
         <button
